@@ -1,0 +1,104 @@
+{
+  "name": "Payment Notification",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "payment-notification",
+        "responseMode": "onReceived",
+        "responseCode": 200
+      },
+      "id": "webhook-trigger",
+      "name": "Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{ $json[\"orderId\"] }}",
+              "operation": "isNotEmpty"
+            }
+          ]
+        }
+      },
+      "id": "validate-data",
+      "name": "Validate Data",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "functionCode": "const data = $input.first().json;\nconst orderNumber = data.orderNumber || 'Unknown';\nconst amount = data.amount || 0;\nconst customerEmail = data.customerEmail || 'N/A';\n\nconst formattedAmount = new Intl.NumberFormat('id-ID', {\n  style: 'currency',\n  currency: 'IDR',\n  minimumFractionDigits: 0\n}).format(amount);\n\nconst notification = {\n  subject: `Payment Confirmed - Order ${orderNumber}`,\n  body: `Hello!\n\nYour payment has been confirmed.\n\nOrder Number: ${orderNumber}\nAmount: ${formattedAmount}\nCustomer Email: ${customerEmail}\n\nThank you for your purchase!\n\nBest regards,\nUMKM ERP Team`,\n  customerEmail: customerEmail,\n  orderNumber: orderNumber,\n  amount: formattedAmount\n};\n\nreturn [{ json: notification }];"
+      },
+      "id": "format-notification",
+      "name": "Format Notification",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [650, 200]
+    },
+    {
+      "parameters": {
+        "functionCode": "const data = $input.first().json;\nconsole.log('=== PAYMENT NOTIFICATION ===');\nconsole.log('Order:', data.orderNumber);\nconsole.log('Amount:', data.amount);\nconsole.log('Customer:', data.customerEmail);\nconsole.log('Subject:', data.subject);\nconsole.log('============================');\n\nreturn [{ json: { ...data, sentAt: new Date().toISOString(), status: 'logged' } }];"
+      },
+      "id": "log-notification",
+      "name": "Log Notification",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [850, 200]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { \"success\": true, \"message\": \"Notification processed\" } }}"
+      },
+      "id": "respond-ok",
+      "name": "Respond OK",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1050, 200]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { \"success\": false, \"message\": \"Invalid data\" } }}",
+        "responseCode": 400
+      },
+      "id": "respond-error",
+      "name": "Respond Error",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [650, 400]
+    }
+  ],
+  "connections": {
+    "Webhook Trigger": {
+      "main": [
+        [{ "node": "Validate Data", "type": "main", "index": 0 }]
+      ]
+    },
+    "Validate Data": {
+      "main": [
+        [{ "node": "Format Notification", "type": "main", "index": 0 }],
+        [{ "node": "Respond Error", "type": "main", "index": 0 }]
+      ]
+    },
+    "Format Notification": {
+      "main": [
+        [{ "node": "Log Notification", "type": "main", "index": 0 }]
+      ]
+    },
+    "Log Notification": {
+      "main": [
+        [{ "node": "Respond OK", "type": "main", "index": 0 }]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

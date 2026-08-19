@@ -1,0 +1,79 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: umkm-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: umkm_erp
+      MYSQL_USER: umkm_user
+      MYSQL_PASSWORD: umkm_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./backend/src/migrations:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: umkm-n8n
+    restart: unless-stopped
+    environment:
+      - N8N_BASIC_AUTH_ACTIVE=false
+      - N8N_HOST=localhost
+      - N8N_PORT=5678
+      - N8N_ENCRYPTION_KEY=umkm_encryption_key_32chars
+      - N8N_SECURE_COOKIE=false
+      - WEBHOOK_URL=http://localhost:5678
+      - DB_TYPE=sqlite
+      - N8N_PORT=5678
+      - VUE_APP_URL_BASE_API=/
+    ports:
+      - "5678:5678"
+    volumes:
+      - n8n_data:/home/node/.n8n
+    command: start --tunnel
+    depends_on:
+      - mysql
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: umkm-backend
+    restart: unless-stopped
+    env_file: ./backend/.env
+    ports:
+      - "3000:3000"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    volumes:
+      - ./backend/src:/app/src
+      - ./backend/dist:/app/dist
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=mysql://umkm_user:P@ssw0rd@mysql:3306/umkm_erp
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: umkm-frontend
+    restart: unless-stopped
+    env_file: ./frontend/.env
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+
+volumes:
+  mysql_data:
+  n8n_data:

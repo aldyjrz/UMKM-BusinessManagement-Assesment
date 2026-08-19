@@ -1,6 +1,6 @@
 # UMKM ERP — Integrated Business Management System
 
-**UMKM ERP** adalah aplikasi web Enterprise Resource Planning (ERP) ringan untuk UMKM (Usaha Mikro, Kecil, dan Menengah) yang mengintegrasikan Sales, Inventory, Customer, Finance, Payment, dan Automation.
+**UMKM ERP** adalah aplikasi web untuk UMKM (Usaha Mikro, Kecil, dan Menengah) yang mengintegrasikan Sales, Inventory, Customer, Finance, Payment, dan Automation.
 
 ## 🏗️ Architecture
 
@@ -46,16 +46,16 @@
          OAuth      Sandbox        Automation
 ```
 
-## 🛠️ Technology Stack
+## Tech-Stack
 
-- **Frontend**: React 18 + TypeScript + Vite + Tailwind CSS + React Router + TanStack Query + Zustand
+- **Frontend**: React 18 + TypeScript + Vite + Tailwind CSS + React Router 
 - **Backend**: Node.js + Express.js + TypeScript + Sequelize + MySQL
 - **Auth**: Google OAuth 2.0 + JWT
 - **Payment**: Midtrans Sandbox
 - **Automation**: n8n
-- **Infrastructure**: Docker + Docker Compose
+- **Infrastructure**: Docker 
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 umkm-business-management/
@@ -127,7 +127,7 @@ umkm-business-management/
 └── README.md
 ```
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 - Node.js 20+
@@ -166,7 +166,7 @@ cp .env.example .env
 npm run dev
 ```
   
-## 🤖 n8n Workflows
+## n8n Workflows
 
 ### Payment Notification
 - Webhook: `/webhook/payment-notification`
@@ -197,9 +197,9 @@ npm run dev
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | GET | `/api/products` | List products |
-| POST | `/api/products` | Create product (Staff+) |
+| POST | `/api/products` | Create product  |
 | GET | `/api/products/:id` | Get product |
-| PUT | `/api/products/:id` | Update product (Staff+) |
+| PUT | `/api/products/:id` | Update product  |
 | DELETE | `/api/products/:id` | Delete product (Admin+) |
 
 ### Customers
@@ -218,8 +218,8 @@ npm run dev
 | GET | `/api/orders/status/:orderNumber` | Get order status (secure token) |
 | GET | `/api/orders/:id` | Get order by ID |
 | GET | `/api/orders/my-orders` | Get user's orders |
-| GET | `/api/orders` | List all orders (Staff+) |
-| GET | `/api/orders/stats` | Order stats (Staff+) |
+| GET | `/api/orders` | List all orders  |
+| GET | `/api/orders/stats` | Order stats  |
 
 ### Payments
 | Method | Endpoint | Description |
@@ -257,8 +257,6 @@ npm run dev
 |------|--------|
 | Guest | Browse products, add to cart, guest checkout, view order status |
 | Customer | All guest access + order history, profile management |
-| Staff | Inventory management, order management, sales reports |
-| Admin | Full access except user management |
-| Owner | All access including user management |
- 
+| Admin | Full access |
+  
 ```
