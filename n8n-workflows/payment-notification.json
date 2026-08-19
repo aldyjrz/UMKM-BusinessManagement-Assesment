@@ -5,100 +5,195 @@
       "parameters": {
         "httpMethod": "POST",
         "path": "payment-notification",
-        "responseMode": "onReceived",
-        "responseCode": 200
+        "options": {}
       },
-      "id": "webhook-trigger",
+      "id": "ef876ed3-892f-4799-9e3d-ed264b3778a2",
       "name": "Webhook Trigger",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 1,
-      "position": [250, 300]
+      "position": [
+        -400,
+        112
+      ],
+      "webhookId": "4c2b65d4-5734-48aa-98a7-4e63be0c6eec"
     },
     {
       "parameters": {
         "conditions": {
-          "boolean": [
+          "string": [
             {
-              "value1": "={{ $json[\"orderId\"] }}",
+              "value1": "={{ $json.body.orderId }}",
               "operation": "isNotEmpty"
             }
           ]
         }
       },
-      "id": "validate-data",
+      "id": "8f486166-55e3-4817-a861-5151687f64fa",
       "name": "Validate Data",
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
-      "position": [450, 300]
+      "position": [
+        -208,
+        112
+      ]
     },
     {
       "parameters": {
-        "functionCode": "const data = $input.first().json;\nconst orderNumber = data.orderNumber || 'Unknown';\nconst amount = data.amount || 0;\nconst customerEmail = data.customerEmail || 'N/A';\n\nconst formattedAmount = new Intl.NumberFormat('id-ID', {\n  style: 'currency',\n  currency: 'IDR',\n  minimumFractionDigits: 0\n}).format(amount);\n\nconst notification = {\n  subject: `Payment Confirmed - Order ${orderNumber}`,\n  body: `Hello!\n\nYour payment has been confirmed.\n\nOrder Number: ${orderNumber}\nAmount: ${formattedAmount}\nCustomer Email: ${customerEmail}\n\nThank you for your purchase!\n\nBest regards,\nUMKM ERP Team`,\n  customerEmail: customerEmail,\n  orderNumber: orderNumber,\n  amount: formattedAmount\n};\n\nreturn [{ json: notification }];"
+        "functionCode": "const data = $input.first().json.body;\nconst orderNumber = data.orderNumber || 'Unknown';\nconst amount = data.amount || 0;\nconst customerEmail = data.customerEmail || 'N/A';\n\nconst formattedAmount = new Intl.NumberFormat('id-ID', {\n  style: 'currency',\n  currency: 'IDR',\n  minimumFractionDigits: 0\n}).format(amount);\n\nconst notification = {\n  subject: `Payment Confirmed - Order ${orderNumber}`,\n  body: `Hello!\n\nYour payment has been confirmed.\n\nOrder Number: ${orderNumber}\nAmount: ${formattedAmount}\nCustomer Email: ${customerEmail}\n\nThank you for your purchase!\n\nBest regards,`,\n  customerEmail: customerEmail,\n  orderNumber: orderNumber,\n  amount: formattedAmount\n};\n\nreturn [{ json: notification }];"
       },
-      "id": "format-notification",
+      "id": "f003fc18-b7cf-4d8f-8634-7a42421dc67c",
       "name": "Format Notification",
       "type": "n8n-nodes-base.function",
       "typeVersion": 1,
-      "position": [650, 200]
+      "position": [
+        0,
+        0
+      ]
     },
     {
       "parameters": {
         "functionCode": "const data = $input.first().json;\nconsole.log('=== PAYMENT NOTIFICATION ===');\nconsole.log('Order:', data.orderNumber);\nconsole.log('Amount:', data.amount);\nconsole.log('Customer:', data.customerEmail);\nconsole.log('Subject:', data.subject);\nconsole.log('============================');\n\nreturn [{ json: { ...data, sentAt: new Date().toISOString(), status: 'logged' } }];"
       },
-      "id": "log-notification",
+      "id": "3738e5d6-78df-4fc0-8fc5-eedcf7772ca5",
       "name": "Log Notification",
       "type": "n8n-nodes-base.function",
       "typeVersion": 1,
-      "position": [850, 200]
+      "position": [
+        208,
+        0
+      ]
     },
     {
       "parameters": {
         "respondWith": "json",
-        "responseBody": "={{ { \"success\": true, \"message\": \"Notification processed\" } }}"
+        "responseBody": "={{ { \"success\": true, \"message\": \"Notification processed\" } }}",
+        "options": {}
       },
-      "id": "respond-ok",
+      "id": "79c1211a-c1fa-4273-b3f2-20f0ffdcdc0f",
       "name": "Respond OK",
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1,
-      "position": [1050, 200]
+      "position": [
+        400,
+        0
+      ]
     },
     {
       "parameters": {
         "respondWith": "json",
         "responseBody": "={{ { \"success\": false, \"message\": \"Invalid data\" } }}",
-        "responseCode": 400
+        "options": {}
       },
-      "id": "respond-error",
+      "id": "7c84e970-3c14-46f5-bc92-c389e7c8183b",
       "name": "Respond Error",
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1,
-      "position": [650, 400]
+      "position": [
+        0,
+        208
+      ]
+    },
+    {
+      "parameters": {
+        "sendTo": "aldyjrz@gmail.com",
+        "subject": "={{ $json.subject }}",
+        "message": "={{ $json.body }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        624,
+        0
+      ],
+      "id": "e1f0fd59-31ef-452b-b191-1f7ce228f67a",
+      "name": "Send a message",
+      "webhookId": "ed4c5a92-492d-4483-beea-b6a7b19ec6d0",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "IyYJPkMmxZ4r0ioc",
+          "name": "Gmail account"
+        }
+      }
     }
   ],
+  "pinData": {},
   "connections": {
     "Webhook Trigger": {
       "main": [
-        [{ "node": "Validate Data", "type": "main", "index": 0 }]
+        [
+          {
+            "node": "Validate Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     },
     "Validate Data": {
       "main": [
-        [{ "node": "Format Notification", "type": "main", "index": 0 }],
-        [{ "node": "Respond Error", "type": "main", "index": 0 }]
+        [
+          {
+            "node": "Format Notification",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     },
     "Format Notification": {
       "main": [
-        [{ "node": "Log Notification", "type": "main", "index": 0 }]
+        [
+          {
+            "node": "Log Notification",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     },
     "Log Notification": {
       "main": [
-        [{ "node": "Respond OK", "type": "main", "index": 0 }]
+        [
+          {
+            "node": "Respond OK",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond OK": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     }
   },
+  "active": false,
   "settings": {
-    "executionOrder": "v1"
-  }
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "32f82a79-fd41-4788-9f9f-430b8e1556cc",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "b6568347f62d222127cc93b591c1d42d5de101573e6c3c6fe8c95e16541a3b10"
+  },
+  "nodeGroups": [],
+  "id": "PnE3xUu51K7RAFXc",
+  "tags": []
 }
