@@ -1,27 +1,7 @@
 version: "3.8"
 
 services:
- 
-  n8n:
-    image: n8nio/n8n:latest
-    container_name: umkm-n8n
-    restart: unless-stopped
-    environment:
-      - N8N_BASIC_AUTH_ACTIVE=false
-      - N8N_HOST=localhost
-      - N8N_PORT=5678
-      - N8N_ENCRYPTION_KEY=umkm_encryption_key_32chars
-      - N8N_SECURE_COOKIE=false
-      - WEBHOOK_URL=http://localhost:5678
-      - DB_TYPE=sqlite
-      - N8N_PORT=5678
-      - VUE_APP_URL_BASE_API=/
-    ports:
-      - "5678:5678"
-    volumes:
-      - n8n_data:/home/node/.n8n
-    command: start --tunnel
-    
+  
 
   backend:
     build:
@@ -50,6 +30,4 @@ services:
       - "5173:5173"
     depends_on:
       - backend
-
-volumes: 
-  n8n_data:
+ 
