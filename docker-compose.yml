@@ -1,7 +1,26 @@
 version: "3.8"
 
 services:
-  
+  mysql:
+    image: mysql:8.0
+    container_name: umkm-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: umkm_erp
+      MYSQL_USER: umkm_user
+      MYSQL_PASSWORD: umkm_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./backend/src/migrations:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+ 
 
   backend:
     build:
@@ -12,12 +31,15 @@ services:
     env_file: ./backend/.env
     ports:
       - "3000:3000"
+    depends_on:
+      mysql:
+        condition: service_healthy
     volumes:
       - ./backend/src:/app/src
       - ./backend/dist:/app/dist
     environment:
       - NODE_ENV=production
-      - DATABASE_URL=localhost://umkm_user:P@ssw0rd@localhost:3306/umkm_erp
+      - DATABASE_URL=mysql://umkm_user:P@ssw0rd@mysql:3306/umkm_erp
 
   frontend:
     build:
@@ -30,4 +52,7 @@ services:
       - "5173:5173"
     depends_on:
       - backend
+
+volumes:
+  mysql_data:
  
