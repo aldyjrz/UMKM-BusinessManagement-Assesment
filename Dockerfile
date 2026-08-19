@@ -8,7 +8,7 @@ WORKDIR /app/backend
 RUN npm install
 
 FROM base AS frontend-deps
-COPY frontend/package.json ./frontend/package.json
+COPY frontend/package*.json ./frontend/
 WORKDIR /app/frontend
 RUN npm install
 
