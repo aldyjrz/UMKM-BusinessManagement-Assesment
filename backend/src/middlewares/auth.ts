@@ -71,29 +71,4 @@ export function roleMiddleware(...allowedRoles: UserRole[]) {
     next();
   };
 }
-
-export function optionalAuthMiddleware(req: AuthenticatedRequest, _res: Response, next: NextFunction): void {
-  const token = req.cookies?.token || req.headers.authorization?.split(" ")[1];
-
-  if (!token) {
-    req.user = undefined;
-    next();
-    return;
-  }
-
-  try {
-    const secret = process.env.JWT_SECRET || "change-this-in-production";
-    const decoded = jwt.verify(token, secret) as JwtPayload;
-    req.user = {
-      id: decoded.userId,
-      email: decoded.email,
-      role: decoded.role,
-      name: decoded.email
-    };
-  } catch {
-    req.user = undefined;
-  }
-
-  next();
-}
-
+ 
