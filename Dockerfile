@@ -40,5 +40,5 @@ COPY --from=frontend-builder /app/frontend/dist ./dist
 COPY --from=frontend-builder /app/frontend/node_modules ./node_modules
 COPY --from=frontend-builder /app/frontend/package.json ./package.json
 RUN npm install -g serve
-EXPOSE 80
-CMD ["serve", "-s", "dist", "-l", "80"]
+EXPOSE 5173
+CMD ["serve", "-s", "dist", "-l", "5173"]
