@@ -33,7 +33,7 @@ router.post(
 router.put("/:id", authMiddleware, roleMiddleware(UserRole.ADMIN), inventoryController.updateProduct);
 router.delete("/:id", authMiddleware, roleMiddleware(UserRole.ADMIN), inventoryController.deleteProduct);
 router.post("/adjustment", authMiddleware, roleMiddleware(UserRole.ADMIN), inventoryController.createStockAdjustment);
-router.post("/purchase", authMiddleware, roleMiddleware(UserRole.STAFF), inventoryController.createPurchase);
+router.post("/purchase", authMiddleware, roleMiddleware(UserRole.ADMIN), inventoryController.createPurchase);
 
 export default router;
 

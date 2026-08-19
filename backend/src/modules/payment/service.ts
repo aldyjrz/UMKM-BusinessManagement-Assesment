@@ -285,7 +285,7 @@ export async function createPayment(orderId: number): Promise<Payment> {
 
   const payment = await Payment.create({
     order_id: order.id,
-    payment_method: order.payment_method,
+    payment_method: "TRANSFER_BANK",
     amount: grossAmount,
     status: "PENDING",
     payment_gateway: "MIDTRANS",

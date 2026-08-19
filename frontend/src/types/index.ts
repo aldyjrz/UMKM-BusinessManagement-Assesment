@@ -136,6 +136,8 @@ export interface Payment {
   snap_token: string | null;
   redirect_url: string | null;
   created_at: string;
+    gateway_response?: string | null;
+
   updated_at: string;
 }
 

@@ -4,11 +4,10 @@ import { Card } from "@/components/ui/Card";
 import { LoadingState, ErrorState } from "@/components/ui/LoadingStates";
 import { formatCurrency } from "@/utils/auth";
 
-const StatCard = ({ title, value, icon, trend }: { title: string; value: string; icon: string; trend?: string }) => (
+const StatCard = ({ title, value, trend }: { title: string; value: string;  trend?: string }) => (
   <div className="rounded-xl bg-white p-6 shadow-sm border border-neutral-200">
     <div className="flex items-center gap-3">
-      <div className="text-2xl">{icon}</div>
-      <div>
+       <div>
         <h3 className="text-sm font-medium text-neutral-500">{title}</h3>
         <p className="text-2xl font-bold text-neutral-800">{value}</p>
         {trend && <p className="text-xs text-neutral-400">{trend}</p>}

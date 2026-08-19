@@ -6,7 +6,7 @@ import clsx from "clsx";
 const AdminLayout = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { user, isAuthenticated, isStaff, logout } = useAuth();
+  const { user, isAuthenticated, isAdmin, logout } = useAuth();
 
   const navigation = [
     { name: "Dashboard", href: "/admin"},
@@ -27,7 +27,7 @@ const AdminLayout = () => {
     return null;
   }
 
-  if (!isStaff) {
+  if (!isAdmin) {
     navigate("/my-orders");
     return null;
   }
@@ -51,8 +51,7 @@ const AdminLayout = () => {
                   : "text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900"
               )}
             >
-              <span>{item.icon}</span>
-              {item.name}
+               {item.name}
             </Link>
           ))}
         </nav>
