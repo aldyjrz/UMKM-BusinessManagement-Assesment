@@ -28,18 +28,14 @@ services:
       dockerfile: Dockerfile
     container_name: umkm-backend
     restart: unless-stopped
-    env_file: ./backend/.env
     ports:
       - "3000:3000"
     depends_on:
       mysql:
         condition: service_healthy
-    volumes:
-      - ./backend/src:/app/src
-      - ./backend/dist:/app/dist
     environment:
       - NODE_ENV=production
-      - DATABASE_URL=mysql://umkm_user:P@ssw0rd@mysql:3306/umkm_erp
+      - DATABASE_URL=mysql://umkm_user:umkm_password@mysql:3306/umkm_erp
 
   frontend:
     build:
@@ -47,7 +43,6 @@ services:
       dockerfile: Dockerfile
     container_name: umkm-frontend
     restart: unless-stopped
-    env_file: ./frontend/.env
     ports:
       - "5173:5173"
     depends_on:
