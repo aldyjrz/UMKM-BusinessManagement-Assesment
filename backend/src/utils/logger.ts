@@ -50,14 +50,14 @@ class Logger {
 
     const formatted = this.formatEntry(entry);
 
-    if (process.env.NODE_ENV === "development") {
+    //if (process.env.NODE_ENV === "development") {
       const prefix = `[${entry.timestamp}] ${level.toUpperCase()}:`;
       if (metadata && Object.keys(metadata).length > 0) {
         console.log(`${prefix} ${message} ${JSON.stringify(metadata)}`);
       } else {
         console.log(`${prefix} ${message}`);
       }
-    }
+   // }
 
     if (level === "error") {
       const errorLogPath = path.join(this.logDir, "error.log");

@@ -35,7 +35,11 @@ services:
         condition: service_healthy
     environment:
       - NODE_ENV=production
-      - DATABASE_URL=mysql://umkm_user:umkm_password@mysql:3306/umkm_erp
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_NAME=umkm_erp
+      - DB_USER=umkm_user
+      - DB_PASSWORD=P@ssw0rd
 
   frontend:
     build:
