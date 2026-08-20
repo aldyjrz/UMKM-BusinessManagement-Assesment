@@ -170,21 +170,15 @@ async function processSuccessfulPayment(
 
     logger.info("Payment processed successfully", { orderId: order.order_number, amount: order.total_amount });
 
-    const customer = order.customer_id ? await Customer.findByPk(order.customer_id) : null;
     await n8nService.triggerPaymentNotification({
       orderId: order.id,
       orderNumber: order.order_number,
       amount: parseFloat(order.total_amount.toString()),
       customerEmail: order.customer_email
     });
+    logger.info("Webhook Triggered successfully", { orderId: order.order_number, amount: order.total_amount });
 
-    if (customer && customer.type === "REGISTERED") {
-      n8nService.triggerWebhook("welcome-back", {
-        orderId: order.id,
-        orderNumber: order.order_number,
-        customerEmail: customer.email
-      });
-    }
+    
   } catch (error) {
     await t.rollback();
     logger.error("Failed to process payment", { orderId: order.order_number, error: (error as Error).message });

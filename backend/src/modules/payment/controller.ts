@@ -77,6 +77,26 @@ class PaymentController {
       return sendError(res, "Failed to get payment", 500);
     }
   }
+
+  async confirmPayment(req: Request, res: Response, _next: NextFunction): Promise<Response> {
+    try {
+      const { orderNumber } = req.params;
+      const order = await paymentService.checkAndUpdatePaymentStatus(orderNumber);
+
+      if (!order) {
+        return sendError(res, "Order not found", 404);
+      }
+
+      return sendSuccess(res, "Payment confirmed", {
+        order_number: order.order_number,
+        payment_status: order.payment_status,
+        status: order.status
+      });
+    } catch (error) {
+      logger.error("Confirm payment error", { error: (error as Error).message });
+      return sendError(res, "Failed to confirm payment", 500);
+    }
+  }
 }
 
 export default new PaymentController();

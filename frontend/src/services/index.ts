@@ -118,6 +118,11 @@ export const paymentService = {
   getById: async (id: number): Promise<Payment> => {
     const response = await api.get(`/payments/${id}`);
     return response.data.data;
+  },
+
+  confirmPayment: async (orderNumber: string): Promise<any> => {
+    const response = await api.get(`/payments/confirm/${orderNumber}`);
+    return response.data.data;
   }
 };
 

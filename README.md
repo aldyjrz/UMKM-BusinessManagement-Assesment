@@ -171,11 +171,7 @@ npm run dev
 ### Payment Notification
 - Webhook: `/webhook/payment-notification`
 - Triggered when payment is PAID
-
-### Low Stock Alert
-- Webhook: `/webhook/low-stock-notification`
-- Triggered when product stock <= minimum_stock
-
+ 
 ### Daily Report
 - Cron trigger in n8n
 - Calls `GET /api/finance/summary`

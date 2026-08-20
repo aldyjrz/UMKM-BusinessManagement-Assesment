@@ -65,14 +65,7 @@ class N8nService {
   async triggerPaymentNotification(payload: { orderId: number; orderNumber: string; amount: number; customerEmail: string }): Promise<void> {
     await this.triggerWebhook("payment-notification", payload);
   }
-
-  async triggerLowStockNotification(payload: { productId: number; productName: string; currentStock: number; minimumStock: number }): Promise<void> {
-    await this.triggerWebhook("low-stock-notification", payload);
-  }
-
-  async triggerDailyReport(): Promise<void> {
-    await this.triggerWebhook("daily-report", { date: new Date().toISOString().split("T")[0] });
-  }
+ 
 }
 
 export default new N8nService();

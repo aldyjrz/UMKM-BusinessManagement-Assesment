@@ -1,7 +1,7 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { orderService } from "@/services";
+import { orderService, paymentService } from "@/services";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { Card } from "@/components/ui/Card";
@@ -15,6 +15,16 @@ const OrderStatusPage = () => {
   const [tokenInput, setTokenInput] = useState("");
   const initialToken = useMemo(() => searchParams.get("token"), [searchParams]);
   const [activeToken, setActiveToken] = useState<string | null>(initialToken);
+  const transactionStatus = searchParams.get("transaction_status");
+  const statusCode = searchParams.get("status_code");
+
+  useEffect(() => {
+    if (transactionStatus === "settlement" && statusCode === "200" && orderNumber) {
+      paymentService.confirmPayment(orderNumber).catch((err) => {
+        console.error("Failed to confirm payment:", err);
+      });
+    }
+  }, [transactionStatus, statusCode, orderNumber]);
 
   const {
     data: order,

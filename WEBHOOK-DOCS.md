@@ -239,16 +239,4 @@ curl -X POST http://localhost:5678/webhook/payment-notification \
     "customerEmail": "test@example.com"
   }'
 ```
-
-### Test N8N Low Stock Notification
-
-```bash
-curl -X POST http://localhost:5678/webhook/low-stock-notification \
-  -H "Content-Type: application/json" \
-  -d '{
-    "productId": 15,
-    "productName": "Kemeja Flanel Premium",
-    "currentStock": 3,
-    "minimumStock": 10
-  }'
-```
+  

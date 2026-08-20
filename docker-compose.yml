@@ -75,8 +75,7 @@ services:
       - ./n8n-workflows:/home/node/workflows
     command: >
       sh -c "n8n import:workflow --input=/home/node/workflows/payment-notification.json 2>&1 || true &&
-             n8n import:workflow --input=/home/node/workflows/low-stock-notification.json 2>&1 || true &&
-             n8n start"
+              n8n start"
     depends_on:
       - backend
 
