@@ -40,6 +40,11 @@ services:
       - DB_NAME=umkm_erp
       - DB_USER=umkm_user
       - DB_PASSWORD=P@ssw0rd
+      - FRONTEND_URL=http://localhost:5173
+      - MIDTRANS_IS_PRODUCTION=false
+      - MIDTRANS_SERVER_KEY=SB-Mid-server-gx4JkQdgQqzCwl7_EvTVcPY_
+      - MIDTRANS_CLIENT_KEY=SB-Mid-client-rNNBHx8BwcQuFDDm
+      - N8N_WEBHOOK_URL=http://n8n:5678/webhook
 
   frontend:
     build:
@@ -52,6 +57,30 @@ services:
     depends_on:
       - backend
 
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: umkm-n8n
+    restart: unless-stopped
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER=admin
+      - N8N_BASIC_AUTH_PASSWORD=admin
+      - WEBHOOK_URL=http://localhost:5678
+      - N8N_HOST=0.0.0.0
+      - GENERIC_TIMEZONE=Asia/Jakarta
+    volumes:
+      - n8n_data:/home/node/.n8n
+      - ./n8n-workflows:/home/node/workflows
+    command: >
+      sh -c "n8n import:workflow --input=/home/node/workflows/payment-notification.json 2>&1 || true &&
+             n8n import:workflow --input=/home/node/workflows/low-stock-notification.json 2>&1 || true &&
+             n8n start"
+    depends_on:
+      - backend
+
 volumes:
   mysql_data:
+  n8n_data:
  
