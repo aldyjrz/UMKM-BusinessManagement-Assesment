@@ -126,6 +126,7 @@ npm run dev
 
 ### Payment Notification
 - Webhook: `/webhook/payment-notification`
+- Webhook: `/webhook/low-stock-notification`
 - Triggered when payment is PAID
   
 
