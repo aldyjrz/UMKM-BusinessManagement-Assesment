@@ -1,10 +1,10 @@
-import Order from "../../models/Order";
-import OrderItem from "../../models/OrderItem";
-import Product from "../../models/Product";
-import Customer from "../../models/Customer";
-import Income from "../../models/Income";
-import Expense from "../../models/Expense";
-import { sequelize } from "../../models";
+import Order from "../../models/Order.js";
+import OrderItem from "../../models/OrderItem.js";
+import Product from "../../models/Product.js";
+import Customer from "../../models/Customer.js";
+import Income from "../../models/Income.js";
+import Expense from "../../models/Expense.js";
+import { sequelize } from "../../models/index.js";
 import { Op } from "sequelize";
 export async function getDashboardData(): Promise<{
   todayRevenue: number;

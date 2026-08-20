@@ -37,18 +37,7 @@ const LandingPage = () => {
           </div>
         </div>
       </section>
-
-      <section className="w-full bg-white rounded-xl shadow-sm border border-neutral-200 p-8 mb-12">
-        <h2 className="text-2xl font-bold text-neutral-800 mb-6 text-center">Our Modules</h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-          {["Sales", "Inventory", "Customer", "Finance", "Payment", "Automation"].map((mod) => (
-            <div key={mod} className="text-center p-4">
-              <div className="text-3xl mb-2">📦</div>
-              <h3 className="font-semibold">{mod}</h3>
-            </div>
-          ))}
-        </div>
-      </section>
+ 
     </div>
   );
 };

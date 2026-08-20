@@ -1,9 +1,9 @@
-import User, { UserRole } from "../../models/User";
-import OAuthAccount from "../../models/OAuthAccount";
-import Customer from "../../models/Customer";
-import googleService from "../../integrations/google/googleService";
-import { generateToken, hashPassword, comparePassword } from "../../config/auth";
-import logger from "../../utils/logger";
+import User, { UserRole } from "../../models/User.js";
+import OAuthAccount from "../../models/OAuthAccount.js";
+import Customer from "../../models/Customer.js";
+import googleService from "../../integrations/google/googleService.js";
+import { generateToken, hashPassword, comparePassword } from "../../config/auth.js";
+import logger from "../../utils/logger.js";
 
 export async function handleGoogleLogin(): Promise<string> {
   const url = googleService.getAuthUrl();

@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import dashboardService from "./service";
-import { sendSuccess, sendError } from "../../utils/response";
+import dashboardService from "./service.js";
+import { sendSuccess, sendError } from "../../utils/response.js";
 
 class DashboardController {
   async getDashboardData(req: Request, res: Response, _next: NextFunction): Promise<Response> {

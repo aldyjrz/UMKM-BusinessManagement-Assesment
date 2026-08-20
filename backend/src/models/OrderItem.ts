@@ -1,7 +1,7 @@
 import { Model, DataTypes, Optional } from "sequelize";
-import sequelize from "../config/database";
-import Order from "./Order";
-import Product from "./Product";
+import sequelize from "../config/database.js";
+import Order from "./Order.js";
+import Product from "./Product.js";
 
 interface OrderItemAttributes {
   id: number;

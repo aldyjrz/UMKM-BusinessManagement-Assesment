@@ -3,17 +3,17 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import rateLimit from "express-rate-limit";
 import dotenv from "dotenv";
-import { sequelize } from "./models";
-import logger from "./utils/logger";
-import errorHandler from "./middlewares/errorHandler";
-import authRoutes from "./modules/auth/routes";
-import productRoutes from "./modules/inventory/routes";
-import customerRoutes from "./modules/customer/routes";
-import salesRoutes from "./modules/sales/routes";
-import paymentRoutes from "./modules/payment/routes";
-import financeRoutes from "./modules/finance/routes";
-import dashboardRoutes from "./modules/dashboard/routes";
-import { sendSuccess } from "./utils/response";
+import { sequelize } from "./models/index.js";
+import logger from "./utils/logger.js";
+import errorHandler from "./middlewares/errorHandler.js";
+import authRoutes from "./modules/auth/routes.js";
+import productRoutes from "./modules/inventory/routes.js";
+import customerRoutes from "./modules/customer/routes.js";
+import salesRoutes from "./modules/sales/routes.js";
+import paymentRoutes from "./modules/payment/routes.js";
+import financeRoutes from "./modules/finance/routes.js";
+import dashboardRoutes from "./modules/dashboard/routes.js";
+import { sendSuccess } from "./utils/response.js";
 
 dotenv.config();
 

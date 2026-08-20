@@ -1,8 +1,8 @@
 import { Router } from "express";
-import inventoryController from "./controller";
-import { authMiddleware, roleMiddleware } from "../../middlewares/auth";
-import { UserRole } from "../../models/User";
-import { validate } from "../../middlewares/validateRequest";
+import inventoryController from "./controller.js";
+import { authMiddleware, roleMiddleware } from "../../middlewares/auth.js";
+import { UserRole } from "../../models/User.js";
+import { validate } from "../../middlewares/validateRequest.js";
 import { body } from "express-validator";
 
 const router: Router = Router();

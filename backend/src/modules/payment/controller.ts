@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
-import paymentService from "./service";
-import { sendSuccess, sendError } from "../../utils/response";
-import logger from "../../utils/logger";
+import paymentService from "./service.js";
+import { sendSuccess, sendError } from "../../utils/response.js";
+import logger from "../../utils/logger.js";
 
 class PaymentController {
   async webhook(req: Request, res: Response, _next: NextFunction): Promise<Response> {

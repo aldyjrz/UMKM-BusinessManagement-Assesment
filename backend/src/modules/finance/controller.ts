@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import financeService from "./service";
-import { sendSuccess, sendError } from "../../utils/response";
+import financeService from "./service.js";
+import { sendSuccess, sendError } from "../../utils/response.js";
 
 class FinanceController {
   async getAllIncomes(req: Request, res: Response, _next: NextFunction): Promise<Response> {

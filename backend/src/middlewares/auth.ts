@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
-import { sendError } from "../utils/response";
-import logger from "../utils/logger";
-import User, { UserRole } from "../models/User";
+import { sendError } from "../utils/response.js";
+import logger from "../utils/logger.js";
+import User, { UserRole } from "../models/User.js";
 
 interface JwtPayload {
   userId: number;

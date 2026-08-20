@@ -1,7 +1,7 @@
 import { Model, DataTypes, Optional } from "sequelize";
-import sequelize from "../config/database";
-import Category from "./Category";
-import Supplier from "./Supplier";
+import sequelize from "../config/database.js";
+import Category from "./Category.js";
+import Supplier from "./Supplier.js";
 
 interface ProductAttributes {
   id: number;

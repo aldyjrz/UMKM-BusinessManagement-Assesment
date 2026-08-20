@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import customerService from "./service";
-import { sendSuccess, sendError } from "../../utils/response";
+import customerService from "./service.js";
+import { sendSuccess, sendError } from "../../utils/response.js";
 
 class CustomerController {
   async createCustomer(req: Request, res: Response, _next: NextFunction): Promise<Response> {

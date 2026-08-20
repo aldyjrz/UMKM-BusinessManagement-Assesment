@@ -1,6 +1,6 @@
 import { Model, DataTypes, Optional } from "sequelize";
-import sequelize from "../config/database";
-import Product from "./Product";
+import sequelize from "../config/database.js";
+import Product from "./Product.js";
 
 export enum MovementType {
   PURCHASE = "PURCHASE",

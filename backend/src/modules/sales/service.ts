@@ -1,13 +1,13 @@
-import Order, { OrderStatus } from "../../models/Order";
-import OrderItem from "../../models/OrderItem";
-import Product from "../../models/Product";
-import Customer from "../../models/Customer";
-import Payment from "../../models/Payment";
-import { sequelize } from "../../models";
-import { generateOrderNumber, generateSecureToken } from "../../utils/response";
-import midtransService from "../../integrations/payment/midtrans";
-import paymentService from "../payment/service";
-import logger from "../../utils/logger";
+import Order, { OrderStatus } from "../../models/Order.js";
+import OrderItem from "../../models/OrderItem.js";
+import Product from "../../models/Product.js";
+import Customer from "../../models/Customer.js";
+import Payment from "../../models/Payment.js";
+import { sequelize } from "../../models/index.js";
+import { generateOrderNumber, generateSecureToken } from "../../utils/response.js";
+import midtransService from "../../integrations/payment/midtrans.js";
+import paymentService from "../payment/service.js";
+import logger from "../../utils/logger.js";
 
 export interface OrderItemInput {
   product_id: number;

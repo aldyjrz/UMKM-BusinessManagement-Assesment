@@ -1,6 +1,6 @@
 import https from "https";
 import http from "http";
-import logger from "../../utils/logger";
+import logger from "../../utils/logger.js";
 
 class N8nService {
   private webhookUrl: string;

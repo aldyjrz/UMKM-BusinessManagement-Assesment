@@ -1,9 +1,9 @@
-import Income from "../../models/Income";
-import Expense from "../../models/Expense";
-import Order from "../../models/Order";
-import { sequelize } from "../../models";
+import Income from "../../models/Income.js";
+import Expense from "../../models/Expense.js";
+import Order from "../../models/Order.js";
+import { sequelize } from "../../models/index.js";
 import { Op } from "sequelize";
-import logger from "../../utils/logger";
+import logger from "../../utils/logger.js";
 
 export interface IncomeInput {
   order_id: number;

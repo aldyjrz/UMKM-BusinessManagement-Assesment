@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from "express";
-import authService from "./service";
-import { sendSuccess, sendError } from "../../utils/response";
-import { setTokenCookie } from "../../config/auth";
-import { AuthenticatedRequest } from "../../middlewares/auth";
-import logger from "../../utils/logger";
+import authService from "./service.js";
+import { sendSuccess, sendError } from "../../utils/response.js";
+import { setTokenCookie } from "../../config/auth.js";
+import { AuthenticatedRequest } from "../../middlewares/auth.js";
+import logger from "../../utils/logger.js";
 
 class AuthController {
   async googleLogin(_req: Request, res: Response, __next: NextFunction): Promise<void> {

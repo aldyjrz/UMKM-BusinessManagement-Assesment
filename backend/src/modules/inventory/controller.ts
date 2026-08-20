@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from "express";
-import inventoryService from "./service";
-import { sendSuccess, sendError } from "../../utils/response";
-import Category from "../../models/Category";
-import Supplier from "../../models/Supplier";
+import inventoryService from "./service.js";
+import { sendSuccess, sendError } from "../../utils/response.js";
+import Category from "../../models/Category.js";
+import Supplier from "../../models/Supplier.js";
 
 class InventoryController {
   async createProduct(req: Request, res: Response, _next: NextFunction): Promise<Response> {

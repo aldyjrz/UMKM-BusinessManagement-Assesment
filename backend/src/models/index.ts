@@ -1,16 +1,16 @@
-import sequelize from "../config/database";
-import User from "./User";
-import OAuthAccount from "./OAuthAccount";
-import Customer from "./Customer";
-import Category from "./Category";
-import Supplier from "./Supplier";
-import Product from "./Product";
-import Order from "./Order";
-import OrderItem from "./OrderItem";
-import Payment from "./Payment";
-import StockMovement from "./StockMovement";
-import Income from "./Income";
-import Expense from "./Expense";
+import sequelize from "../config/database.js";
+import User from "./User.js";
+import OAuthAccount from "./OAuthAccount.js";
+import Customer from "./Customer.js";
+import Category from "./Category.js";
+import Supplier from "./Supplier.js";
+import Product from "./Product.js";
+import Order from "./Order.js";
+import OrderItem from "./OrderItem.js";
+import Payment from "./Payment.js";
+import StockMovement from "./StockMovement.js";
+import Income from "./Income.js";
+import Expense from "./Expense.js";
 
 const db: any = {
   sequelize,

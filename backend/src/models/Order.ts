@@ -1,6 +1,6 @@
 import { Model, DataTypes, Optional } from "sequelize";
-import sequelize from "../config/database";
-import Customer from "./Customer";
+import sequelize from "../config/database.js";
+import Customer from "./Customer.js";
 
 export enum OrderStatus {
   DRAFT = "DRAFT",

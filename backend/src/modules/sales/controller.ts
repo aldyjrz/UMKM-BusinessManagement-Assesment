@@ -1,11 +1,11 @@
 import { Request, Response, NextFunction } from "express";
-import salesService from "./service";
-import { sendSuccess, sendError } from "../../utils/response";
-import logger from "../../utils/logger";
-import OrderItem from "../../models/OrderItem";
-import Payment from "../../models/Payment";
-import Order from "../../models/Order";
-import Customer from "../../models/Customer";
+import salesService from "./service.js";
+import { sendSuccess, sendError } from "../../utils/response.js";
+import logger from "../../utils/logger.js";
+import OrderItem from "../../models/OrderItem.js";
+import Payment from "../../models/Payment.js";
+import Order from "../../models/Order.js";
+import Customer from "../../models/Customer.js";
 
 class SalesController {
   async createGuestOrder(req: Request, res: Response, _next: NextFunction): Promise<Response> {

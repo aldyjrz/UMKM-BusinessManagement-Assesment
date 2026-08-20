@@ -1,6 +1,6 @@
 import { body, validationResult, type ValidationError, type ValidationChain } from "express-validator";
 import { Response, NextFunction, Request } from "express";
-import { sendError } from "../utils/response";
+import { sendError } from "../utils/response.js";
 
 export function validate(checks: ValidationChain[]): (req: Request, res: Response, next: NextFunction) => void {
   return async (req: Request, res: Response, next: NextFunction): Promise<void> => {

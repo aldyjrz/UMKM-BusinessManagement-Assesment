@@ -1,12 +1,12 @@
-import Product from "../../models/Product";
-import Category from "../../models/Category";
-import Supplier from "../../models/Supplier";
-import StockMovement, { MovementType } from "../../models/StockMovement";
-import { sequelize } from "../../models";
+import Product from "../../models/Product.js";
+import Category from "../../models/Category.js";
+import Supplier from "../../models/Supplier.js";
+import StockMovement, { MovementType } from "../../models/StockMovement.js";
+import { sequelize } from "../../models/index.js";
 import { Op } from "sequelize";
 
-import n8nService from "../../integrations/n8n/n8nClient";
-import logger from "../../utils/logger";
+import n8nService from "../../integrations/n8n/n8nClient.js";
+import logger from "../../utils/logger.js";
 
 export interface ProductInput {
   sku: string;
