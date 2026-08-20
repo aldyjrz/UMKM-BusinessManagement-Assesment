@@ -6,10 +6,10 @@ services:
     container_name: umkm-mysql
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_ROOT_PASSWORD: P@ssw0rd
       MYSQL_DATABASE: umkm_erp
       MYSQL_USER: umkm_user
-      MYSQL_PASSWORD: umkm_password
+      MYSQL_PASSWORD: P@ssw0rd
     ports:
       - "3306:3306"
     volumes:

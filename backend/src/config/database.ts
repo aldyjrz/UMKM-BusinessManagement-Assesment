@@ -16,7 +16,7 @@ const sequelize = new Sequelize(
       dateStrings: true,
       typeCast: true
     },
-    timezone: "Asia/Jakarta"
+    timezone: "+07:00"
   }
 );
 
