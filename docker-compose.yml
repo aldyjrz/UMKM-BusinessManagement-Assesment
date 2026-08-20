@@ -46,7 +46,7 @@ services:
       - MIDTRANS_CLIENT_KEY=SB-Mid-client-rNNBHx8BwcQuFDDm
       - N8N_WEBHOOK_URL=http://n8n:5678/webhook
 
-    frontend:
+  frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
@@ -57,25 +57,25 @@ services:
     depends_on:
       - backend
 
-    n8n:
-      image: n8nio/n8n:latest
-      container_name: umkm-n8n
-      restart: unless-stopped
-      ports:
-        - "5678:5678"
-      environment:
-        - N8N_BASIC_AUTH_ACTIVE=true
-        - N8N_BASIC_AUTH_USER=admin
-        - N8N_BASIC_AUTH_PASSWORD=admin
-        - WEBHOOK_URL=http://localhost:5678
-        - N8N_HOST=0.0.0.0
-        - GENERIC_TIMEZONE=Asia/Jakarta
-      volumes:
-        - n8n_data:/home/node/.n8n
-        - ./n8n-workflows:/home/node/workflows
-      command: n8n start
-      depends_on:
-        - backend
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: umkm-n8n
+    restart: unless-stopped
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER=admin
+      - N8N_BASIC_AUTH_PASSWORD=admin
+      - WEBHOOK_URL=http://localhost:5678
+      - N8N_HOST=0.0.0.0
+      - GENERIC_TIMEZONE=Asia/Jakarta
+    volumes:
+      - n8n_data:/home/node/.n8n
+      - ./n8n-workflows:/home/node/workflows
+    command: n8n start
+    depends_on:
+      - backend
 
 volumes:
   mysql_data:
