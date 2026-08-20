@@ -65,6 +65,10 @@ class N8nService {
   async triggerPaymentNotification(payload: { orderId: number; orderNumber: string; amount: number; customerEmail: string }): Promise<void> {
     await this.triggerWebhook("payment-notification", payload);
   }
+
+  async triggerLowStockNotification(payload: { productId: number; productName: string; currentStock: number; minimumStock: number }): Promise<void> {
+    await this.triggerWebhook("low-stock-notification", payload);
+  }
  
 }
 

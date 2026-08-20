@@ -1,58 +1,14 @@
 # UMKM MANAGEMENT — Integrated Business Management System
 
 **UMKM MANAGEMENT** adalah aplikasi web untuk UMKM (Usaha Mikro, Kecil, dan Menengah) yang mengintegrasikan Sales, Inventory, Customer, Finance, Payment, dan Automation.
-
-## 🏗️ Architecture
-
-```
-                    ┌──────────────────────┐
-                    │      CUSTOMER        │
-                    └──────────┬───────────┘
-                               │
-            ┌──────────────────┴──────────────────┐
-            │                                     │
-     Guest Checkout                        Google Login
-            │                                     │
-            └──────────────────┬──────────────────┘
-                               ▼
-                   ┌───────────────────┐
-                   │    React +        │
-                   │  Tailwind CSS     │
-                   └─────────┬─────────┘
-                             │
-                          REST API
-                             │
-                   ┌─────────▼─────────┐
-                   │      Express      │
-                   │     Backend      │
-                   ├───────────────────┤
-                   │ Auth              │
-                   │ Sales             │
-                   │ Customer          │
-                   │ Inventory         │
-                   │ Finance          │
-                   │ Payment          │
-                   │ Dashboard        │
-                   └─────────┬─────────┘
-                             │
-                          ┌─▼─┐
-                          │MySQL│
-                          └───┘
-                             │
-            ┌───────────────┼───────────────┐
-            │               │               │
-            ▼               ▼               ▼
-         Google        Midtrans        n8n
-         OAuth      Sandbox        Automation
-```
-
+ 
 ## Tech-Stack
 
 - **Frontend**: React 18 + TypeScript + Vite + Tailwind CSS + React Router 
 - **Backend**: Node.js + Express.js + TypeScript + Sequelize + MySQL
 - **Auth**: Google OAuth 2.0 + JWT
 - **Payment**: Midtrans Sandbox
-- **Automation**: n8n
+- **Automation**: n8n triggered when payment successfull and send email notification
 - **Infrastructure**: Docker 
 
 ## Project Structure
@@ -140,7 +96,7 @@ umkm-business-management/
 cp backend/.env.example backend/.env
 cp frontend/.env.example frontend/.env
 
-# Edit .env files with your credentials (Google OAuth, Midtrans, etc.)
+# .env yang sudah saya miliki untuk testing sudah ada di .env.example tinggal gunakan saja 
 
 docker-compose up --build
 ```
@@ -171,11 +127,7 @@ npm run dev
 ### Payment Notification
 - Webhook: `/webhook/payment-notification`
 - Triggered when payment is PAID
- 
-### Daily Report
-- Cron trigger in n8n
-- Calls `GET /api/finance/summary`
-- Sends scheduled report
+  
 
 ##  API Endpoints
 
