@@ -73,7 +73,7 @@ services:
     volumes:
       - n8n_data:/home/node/.n8n
       - ./n8n-workflows:/home/node/workflows
-    depends_on:
+     depends_on:
       - backend
 
 volumes:
