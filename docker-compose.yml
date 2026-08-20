@@ -43,7 +43,7 @@ services:
       - MIDTRANS_IS_PRODUCTION=false
       - MIDTRANS_SERVER_KEY=SB-Mid-server-gx4JkQdgQqzCwl7_EvTVcPY_
       - MIDTRANS_CLIENT_KEY=SB-Mid-client-rNNBHx8BwcQuFDDm
-      - N8N_WEBHOOK_URL=http://localhost:5678/webhook
+      - N8N_WEBHOOK_URL=http://n8n:5678/webhook
     env_file:
           - .env.production
   frontend:
@@ -67,7 +67,7 @@ services:
       - N8N_BASIC_AUTH_ACTIVE=true
       - N8N_BASIC_AUTH_USER=admin
       - N8N_BASIC_AUTH_PASSWORD=admin
-      - N8N_WEBHOOK_URL=http://localhost:5678
+      - N8N_WEBHOOK_URL=http://n8n:5678
       - N8N_HOST=0.0.0.0
       - GENERIC_TIMEZONE=Asia/Jakarta
     volumes:
