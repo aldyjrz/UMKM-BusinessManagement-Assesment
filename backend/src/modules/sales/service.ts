@@ -6,7 +6,6 @@ import Payment from "../../models/Payment.js";
 import { sequelize } from "../../models/index.js";
 import { generateOrderNumber, generateSecureToken } from "../../utils/response.js";
 import midtransService from "../../integrations/payment/midtrans.js";
-import paymentService from "../payment/service.js";
 import logger from "../../utils/logger.js";
 
 export interface OrderItemInput {
@@ -203,12 +202,6 @@ export async function getOrderByNumber(orderNumber: string): Promise<Order | nul
 }
 
 export async function getOrderStatus(orderNumber: string, secureToken: string): Promise<Order | null> {
-  try {
-    await paymentService.checkAndUpdatePaymentStatus(orderNumber);
-  } catch (error) {
-    logger.error("Error updating payment status in getOrderStatus", { orderNumber, error: (error as Error).message });
-  }
-
   return Order.findOne({
     where: { order_number: orderNumber, secure_token: secureToken },
     include: [

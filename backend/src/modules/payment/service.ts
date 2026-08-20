@@ -74,9 +74,23 @@ async function processSuccessfulPayment(
   payment: Payment | null,
   payload: any
 ): Promise<void> {
+  // Re-check payment_status inside transaction to prevent double processing (race condition)
+  const currentOrder = await Order.findByPk(order.id, { transaction: undefined });
+  if (currentOrder && currentOrder.payment_status === "PAID") {
+    logger.info("Payment already processed (guard), skipping", { orderId: order.order_number });
+    return;
+  }
+
   const t = await sequelize.transaction();
 
   try {
+    // Double-check inside transaction
+    await order.reload({ transaction: t });
+    if (order.payment_status === "PAID") {
+      await t.rollback();
+      logger.info("Payment already processed (inside tx), skipping", { orderId: order.order_number });
+      return;
+    }
     if (payment) {
       await payment.update(
         {
@@ -110,6 +124,17 @@ async function processSuccessfulPayment(
       },
       { transaction: t }
     );
+
+    // Check if stock was already deducted for this order (idempotency guard)
+    const existingMovements = await StockMovement.findAll({
+      where: { reference_id: order.order_number, reference_type: "ORDER" },
+      transaction: t
+    });
+    if (existingMovements.length > 0) {
+      await t.rollback();
+      logger.info("Stock already deducted for this order, skipping", { orderId: order.order_number });
+      return;
+    }
 
     const orderItems = await OrderItem.findAll({
       where: { order_id: order.id },
