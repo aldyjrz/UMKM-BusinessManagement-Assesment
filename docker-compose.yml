@@ -1,4 +1,3 @@
-version: "3.8"
 
 services:
   mysql:
@@ -73,7 +72,6 @@ services:
     volumes:
       - n8n_data:/home/node/.n8n
       - ./n8n-workflows:/home/node/workflows
-    command: n8n start
     depends_on:
       - backend
 
