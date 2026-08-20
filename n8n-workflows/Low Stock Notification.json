@@ -1,0 +1,201 @@
+{
+  "name": "Low Stock Notification",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "low-stock-notification",
+        "options": {}
+      },
+      "id": "3fc576c7-aff9-4f8b-a5db-4529feb4bef1",
+      "name": "Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        -400,
+        112
+      ],
+      "webhookId": "0b15fd55-af19-4f31-8128-a198e610f0cd"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [],
+          "string": [
+            {
+              "value1": "={{ $json.body[\"productId\"] }}",
+              "operation": "isNotEmpty"
+            }
+          ]
+        }
+      },
+      "id": "6de4b10b-a79a-4643-83b9-c37147c89d4e",
+      "name": "Validate Data",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        -208,
+        112
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "const data = $input.first().json.body;\nconst productName = data.productName || 'Unknown Product';\nconst currentStock = data.currentStock || 0;\nconst minimumStock = data.minimumStock || 0;\n\nconst severity = currentStock === 0 ? 'CRITICAL' : 'WARNING';\n\nconst notification = {\n  subject: `[${severity}] Low Stock Alert - ${productName}`,\n  body: `LOW STOCK ALERT\n\nProduct: ${productName}\nCurrent Stock: ${currentStock}\nMinimum Stock: ${minimumStock}\nSeverity: ${severity}\n\nPlease restock this product as soon as possible.\n\n---\nUMKM MANAGEMENT Inventory System`,\n  productName: productName,\n  currentStock: currentStock,\n  minimumStock: minimumStock,\n  severity: severity,\n  productId: data.productId\n};\n\nreturn [{ json: notification }];"
+      },
+      "id": "0bee7f20-51f7-4fba-be9b-d047aaa43975",
+      "name": "Format Notification",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "const data = $input.first().json;\nconsole.log('=== LOW STOCK ALERT ===');\nconsole.log('Product:', data.productName);\nconsole.log('Current Stock:', data.currentStock);\nconsole.log('Minimum Stock:', data.minimumStock);\nconsole.log('Severity:', data.severity);\nconsole.log('=======================');\n\nreturn [{ json: { ...data, sentAt: new Date().toISOString(), status: 'logged' } }];"
+      },
+      "id": "fe9917f3-6388-4442-8e4f-fd7810db05c7",
+      "name": "Log Notification",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        208,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { \"success\": true, \"message\": \"Low stock notification processed\" } }}",
+        "options": {}
+      },
+      "id": "60584549-30c5-4136-8e27-c31f47e7e542",
+      "name": "Respond OK",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        400,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { \"success\": false, \"message\": \"Invalid data\" } }}",
+        "options": {}
+      },
+      "id": "f9173c2b-db55-4f76-8ba9-02b59b31e709",
+      "name": "Respond Error",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        0,
+        208
+      ]
+    },
+    {
+      "parameters": {
+        "fromEmail": "aldyjrz@gmail.com",
+        "toEmail": "aldyjrz@gmail.com",
+        "subject": "= {{ $json.subject }}",
+        "html": "={{ $json.body }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        624,
+        0
+      ],
+      "id": "7011266e-2ee1-40c7-89ea-49c26e82f82c",
+      "name": "Send an Email",
+      "webhookId": "4e303959-3629-49dc-b806-74469b806ddd",
+      "credentials": {
+        "smtp": {
+          "id": "Zj1z6myx9wiLcHtq",
+          "name": "SMTP account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook Trigger": {
+      "main": [
+        [
+          {
+            "node": "Validate Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate Data": {
+      "main": [
+        [
+          {
+            "node": "Format Notification",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Notification": {
+      "main": [
+        [
+          {
+            "node": "Log Notification",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Log Notification": {
+      "main": [
+        [
+          {
+            "node": "Respond OK",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond OK": {
+      "main": [
+        [
+          {
+            "node": "Send an Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "707d8ff9-809f-4530-8897-20223d3feade",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "3b4b738be7b4a7db8e778c2a358c39868326846f4cc2c7ce5312244c4cefd710"
+  },
+  "nodeGroups": [],
+  "id": "1kifAsnsLQufotZz",
+  "tags": []
+}

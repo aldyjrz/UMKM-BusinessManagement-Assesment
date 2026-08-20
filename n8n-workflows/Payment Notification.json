@@ -95,24 +95,25 @@
     },
     {
       "parameters": {
-        "sendTo": "aldyjrz@gmail.com",
+        "fromEmail": "aldyjrz@gmail.com",
+        "toEmail": "aldyjrz@gmail.com",
         "subject": "={{ $json.subject }}",
-        "message": "={{ $json.body }}",
+        "html": "={{ $json.body }}",
         "options": {}
       },
-      "type": "n8n-nodes-base.gmail",
-      "typeVersion": 2.2,
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
       "position": [
         624,
         0
       ],
-      "id": "e1f0fd59-31ef-452b-b191-1f7ce228f67a",
-      "name": "Send a message",
-      "webhookId": "ed4c5a92-492d-4483-beea-b6a7b19ec6d0",
+      "id": "3e8b87ab-3132-413b-94a9-72d7d5381baf",
+      "name": "Send an Email",
+      "webhookId": "64966c95-a25b-44eb-a7e3-bd59e6f36e8c",
       "credentials": {
-        "gmailOAuth2": {
-          "id": "IyYJPkMmxZ4r0ioc",
-          "name": "Gmail account"
+        "smtp": {
+          "id": "Zj1z6myx9wiLcHtq",
+          "name": "SMTP account"
         }
       }
     }
@@ -174,7 +175,7 @@
       "main": [
         [
           {
-            "node": "Send a message",
+            "node": "Send an Email",
             "type": "main",
             "index": 0
           }
@@ -188,10 +189,10 @@
     "binaryMode": "separate",
     "availableInMCP": false
   },
-  "versionId": "32f82a79-fd41-4788-9f9f-430b8e1556cc",
+  "versionId": "19c78eba-0469-444a-b3df-027baa223177",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "b6568347f62d222127cc93b591c1d42d5de101573e6c3c6fe8c95e16541a3b10"
+    "instanceId": "3b4b738be7b4a7db8e778c2a358c39868326846f4cc2c7ce5312244c4cefd710"
   },
   "nodeGroups": [],
   "id": "PnE3xUu51K7RAFXc",
