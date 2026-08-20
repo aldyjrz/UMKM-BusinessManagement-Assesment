@@ -38,7 +38,7 @@ const LoginPage = () => {
       <div className="w-full max-w-md space-y-8">
         <div className="text-center">
           <h1 className="text-3xl font-bold text-neutral-800">Staff Login</h1>
-          <p className="mt-2 text-sm text-neutral-600">Login to access the UMKM ERP dashboard</p>
+          <p className="mt-2 text-sm text-neutral-600">Login to access the UMKM MANAGEMENT dashboard</p>
         </div>
 
         <div className="rounded-xl bg-white p-8 shadow-sm border border-neutral-200">

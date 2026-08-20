@@ -9,7 +9,7 @@ const LandingPage = () => {
   return (
     <div className="flex flex-col items-center">
       <section className="w-full text-center py-16 sm:py-24">
-        <h1 className="text-4xl sm:text-5xl font-bold text-neutral-800 mb-4">UMKM ERP</h1>
+        <h1 className="text-4xl sm:text-5xl font-bold text-neutral-800 mb-4">UMKM MANAGEMENT</h1>
         <p className="text-xl text-neutral-600 mb-8 max-w-2xl mx-auto">
           Integrated Business Management System for Micro, Small, and Medium Enterprises
         </p>

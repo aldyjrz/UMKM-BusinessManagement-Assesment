@@ -1,6 +1,6 @@
-# UMKM ERP — Integrated Business Management System
+# UMKM MANAGEMENT — Integrated Business Management System
 
-**UMKM ERP** adalah aplikasi web untuk UMKM (Usaha Mikro, Kecil, dan Menengah) yang mengintegrasikan Sales, Inventory, Customer, Finance, Payment, dan Automation.
+**UMKM MANAGEMENT** adalah aplikasi web untuk UMKM (Usaha Mikro, Kecil, dan Menengah) yang mengintegrasikan Sales, Inventory, Customer, Finance, Payment, dan Automation.
 
 ## 🏗️ Architecture
 

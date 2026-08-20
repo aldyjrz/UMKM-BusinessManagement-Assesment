@@ -36,7 +36,7 @@ const AdminLayout = () => {
     <div className="flex min-h-screen bg-neutral-50">
       <aside className="hidden w-64 flex-shrink-0 flex-col overflow-y-auto bg-white shadow-sm border-r border-neutral-200 lg:flex">
         <div className="flex h-16 items-center px-6 border-b border-neutral-200">
-          <span className="text-xl font-bold text-primary-600">UMKM ERP Admin</span>
+          <span className="text-xl font-bold text-primary-600">UMKM MANAGEMENT Admin</span>
         </div>
 
         <nav className="flex-1 space-y-1 p-4">

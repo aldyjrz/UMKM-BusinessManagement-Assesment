@@ -1,7 +1,7 @@
 {
   "name": "umkm-erp-backend",
   "version": "1.0.0",
-  "description": "UMKM ERP Backend - Express.js REST API",
+  "description": "UMKM MANAGEMENT Backend - Express.js REST API",
   "main": "dist/server.js",
   "type": "module",
   "scripts": {

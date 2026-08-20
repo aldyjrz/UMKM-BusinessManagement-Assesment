@@ -1,5 +1,5 @@
 -- =====================================================
--- UMKM ERP Database Migration
+-- UMKM MANAGEMENT Database Migration
 -- Created: 2026-08-19
 -- =====================================================
 
