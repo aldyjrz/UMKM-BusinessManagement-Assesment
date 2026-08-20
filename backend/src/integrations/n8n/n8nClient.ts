@@ -38,13 +38,13 @@ class N8nService {
     try {
       await new Promise<void>((resolve) => {
         const req = lib.request(options, (res) => {
-          logger.info("N8N webhook response", { event, statusCode: res.statusCode });
+          logger.info("N8N webhook response " , { event, statusCode: res.statusCode });
           res.resume();
           resolve();
         });
 
         req.on("error", (_error) => {
-          logger.error("N8N webhook request failed", { event, error: (_error as Error).message });
+          logger.error("N8N webhook request failed" +url, { event, error: (_error as Error).message });
           resolve();
         });
 
