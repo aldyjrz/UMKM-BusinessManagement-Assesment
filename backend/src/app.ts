@@ -73,7 +73,8 @@ async function connectDB(): Promise<void> {
       logger.info("Database synced");
     }
   } catch (error) {
-    logger.error("Database connection failed", { error: (error as Error).message });
+    const err = error instanceof Error ? error : new Error(String(error));
+    logger.error("Database connection failed", { error: err.message, stack: err.stack });
     process.exit(1);
   }
 }
