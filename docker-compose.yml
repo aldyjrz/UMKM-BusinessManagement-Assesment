@@ -46,7 +46,7 @@ services:
       - MIDTRANS_CLIENT_KEY=SB-Mid-client-rNNBHx8BwcQuFDDm
       - N8N_WEBHOOK_URL=http://n8n:5678/webhook
 
-  frontend:
+    frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
